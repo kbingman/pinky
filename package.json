@@ -1,0 +1,27 @@
+{
+  "name": "canvas",
+  "version": "1.0.0",
+  "description": "Simple functional canvas library",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "canvas"
+  ],
+  "author": "Keith Bingman",
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.15.1",
+    "babel-core": "^6.9.1",
+    "sinon": "^1.17.4",
+    "webpack": "^1.13.1"
+  },
+  "ava": {
+    "require": [
+      "babel-core/register",
+      "./test/helpers/setup-browser-env.js"
+    ],
+    "babel": "inherit"
+  }
+}
