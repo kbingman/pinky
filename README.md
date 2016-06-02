@@ -1,2 +1,2 @@
 # pinky
-Simple function canvas library in order to rule the world
+Simple functional canvas library in order to rule the world
