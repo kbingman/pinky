@@ -20,5 +20,4 @@ const createMockCanvas = function (context) {
 
 const canvas = createMockCanvas(context);
 
-
 export { context, canvas };
