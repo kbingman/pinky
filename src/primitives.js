@@ -1,12 +1,32 @@
-export function createCircle (context, {x, y, radius, color}) {
+const PI = Math.PI;
+const TAU = Math.PI * 2;
+
+/**
+ * Clear canvas
+ */
+export function clear (context, { width, height }) {
+  context.clearRect(0, 0, width, height);
+};
+
+export function circle (context, { x, y, radius, color, stroke, fill, percentage }) {
+  const radians = percentage ? percentage * TAU : TAU;
+  console.log(context);
+
   context.beginPath();
+  context.lineWidth = stroke || 1;
   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.7)';
-  context.arc(x, y, radius, 0, 2 * Math.PI, false);
+  // context.fillStyle = fill;
+  context.arc(x, y, radius, 0, radians, false);
   context.stroke();
 }
 
-export function createEllipse (context, {x, y, radiusX, radiusY, color, angle, stroke}) {
+export function dot (context, { x, y, radius, color }) {
+  circle(context, { pos, radius, fill: color });
+}
+
+export function ellipse (context, { x, y, radiusX, radiusY, color, angle, stroke }) {
   const diff = radiusX - radiusY;
+
   x = x + (diff / 2);
   angle = angle || 0;
 
@@ -17,15 +37,8 @@ export function createEllipse (context, {x, y, radiusX, radiusY, color, angle, s
   context.stroke();
 }
 
-export function createDot (context, {x, y, radius, color}) {
-  context.beginPath();
-  context.fillStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-  context.arc(x, y, radius, 0, 2 * Math.PI, false);
-  context.fill();
-}
-
-export function createCrosshair (context, {x, y, size, color}) {
-  let l = size ? size / 2 : 20;
+export function crosshair (context, { x, y, size, color }) {
+  const l = size ? size / 2 : 20;
 
   context.beginPath();
   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
@@ -36,18 +49,18 @@ export function createCrosshair (context, {x, y, size, color}) {
   context.stroke();
 }
 
-export function createLine (context, {x1, y1, x2, y2, color}) {
+export function line (context, { x, y, x1, y1, color, stroke }) {
   context.beginPath();
   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-  context.moveTo(x1, y1);
-  context.lineTo(x2, y2);
+  context.moveTo(x, y);
+  context.lineTo(x1, y1);
   context.stroke();
 }
 
-export function creatQuadraticCurve (context, {x1, y1, x2, y2, xc, yc, color}) {
+export function quadraticCurve (context, { x, y, x1, y1, xc, yc, color }) {
   context.beginPath();
   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-  context.moveTo(x1, y1);
-  context.quadraticCurveTo(xc, yc, x2, y2);
+  context.moveTo(x, y);
+  context.quadraticCurveTo(xc, yc, x1, y1);
   context.stroke();
 }
