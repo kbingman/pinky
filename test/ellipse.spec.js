@@ -2,30 +2,30 @@ import test from 'ava';
 import { context } from './helpers/mock-context';
 import { ellipse, clear } from '../src/primitives';
 
-test.beforeEach(() => {
-  ellipse(context, {x: 10, y: 10, radiusX: 2, radiusY: 2.5});
+test.beforeEach(t => {
+  ellipse(context, { x: 10, y: 10, rx: 2, ry: 2.5 });
 });
 
 test('sets a specific color', (t) => {
-  ellipse(context, {x: 10, y: 10, radiusX: 2, radiusY: 2.5, color: 'lime' });
-  t.deepEqual(context.strokeStyle, 'lime');
+  ellipse(context, {x: 10, y: 10, rx: 2, ry: 2.5, color: 'lime' });
+  t.true(context.strokeStyle === 'lime');
 });
 
-test('sets the default color to \"hsla(0, 100%, 100%, 0.3)\"', (t) => {
-  t.deepEqual(context.strokeStyle, 'hsla(0, 100%, 100%, 0.3)');
+test('sets the default color to \"white"', (t) => {
+  t.true(context.strokeStyle === 'white');
 });
 
 test('calls the stroke method', (t) => {
-  t.deepEqual(context.stroke.called, true);
+  t.true(context.stroke.called);
 });
 
 test('calls the ellipse method with the default angle', (t) => {
-  t.deepEqual(context.ellipse.calledWith(9.75, 10, 2, 2.5, 0), true);
+  t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 0));
 });
 
 test('calls the ellipse method with the default angle', (t) => {
-  ellipse(context, {x: 10, y: 10, radiusX: 2, radiusY: 2.5, angle: 10});
-  t.deepEqual(context.ellipse.calledWith(9.75, 10, 2, 2.5, 10), true);
+  ellipse(context, {x: 10, y: 10, rx: 2, ry: 2.5, angle: 10});
+  t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 10));
 });
 
 test('clear canvas', t => {

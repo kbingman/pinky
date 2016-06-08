@@ -66,11 +66,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.primitives = exports.canvas = undefined;
+	exports.init = undefined;
 
-	var _canvas = __webpack_require__(2);
+	var _init = __webpack_require__(2);
 
-	var canvas = _interopRequireWildcard(_canvas);
+	var _init2 = _interopRequireDefault(_init);
 
 	var _primitives = __webpack_require__(3);
 
@@ -78,28 +78,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-	var contextify = function contextify(context) {
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var contextify = function contextify(context, key) {
 	  return function (options) {
 	    var fn = primitives[key];
 	    return fn(context, options);
 	  };
 	};
 
-	var factory = function factory(context) {
-	  var draw = Object.keys(primitives).reduce(function (memo, key) {
-	    memo[key] = contextify(context);
+	var init = function init(canvas, options) {
+	  var context = (0, _init2.default)(canvas, options);
+
+	  return Object.keys(primitives).reduce(function (memo, key) {
+	    memo[key] = contextify(context, key);
 	    return memo;
 	  }, {});
-
-	  var canvasy = Object.keys(primitives).reduce(function (memo, key) {
-	    memo[key] = contextify(context);;
-	  }, {});
-
-	  return { draw: draw, canvasy: canvasy };
 	};
 
-	exports.canvas = canvas;
-	exports.primitives = primitives;
+	exports.init = init;
 
 /***/ },
 /* 2 */
@@ -110,7 +107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.init = init;
+	exports.default = init;
 	/**
 	 * Basic fullscreen canvas
 	 */
@@ -120,6 +117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var ratio = _ref.ratio;
 
 	  var context = canvas.getContext('2d');
+	  ratio = ratio || 1;
 
 	  canvas.width = width * ratio;
 	  canvas.height = height * ratio;
@@ -169,14 +167,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var percentage = _ref2.percentage;
 
 	  var radians = percentage ? percentage * TAU : TAU;
-	  console.log(context);
 
 	  context.beginPath();
 	  context.lineWidth = stroke || 1;
 	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.7)';
-	  // context.fillStyle = fill;
+
 	  context.arc(x, y, radius, 0, radians, false);
 	  context.stroke();
+	  if (fill) {
+	    context.fillStyle = fill;
+	    context.fill();
+	  }
 	}
 
 	function dot(context, _ref3) {
@@ -185,7 +186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var radius = _ref3.radius;
 	  var color = _ref3.color;
 
-	  circle(context, { pos: pos, radius: radius, fill: color });
+	  circle(context, { x: x, y: y, radius: radius, fill: color });
 	}
 
 	function ellipse(context, _ref4) {

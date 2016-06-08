@@ -7,7 +7,8 @@ const context = {
   ellipse: spy(),
   fill: spy(),
   scale: spy(),
-  stroke: spy()
+  stroke: spy(),
+  strokeStyle: null
 }
 
 const createMockCanvas = function (context) {

@@ -1,8 +1,9 @@
 /**
  * Basic fullscreen canvas
  */
-export function init (canvas, { width, height, ratio }) {
+export default function init (canvas, { width, height, ratio }) {
   const context = canvas.getContext('2d');
+  ratio = ratio || 1;
 
   canvas.width = width * ratio;
   canvas.height = height * ratio;

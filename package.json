@@ -4,6 +4,7 @@
   "description": "Simple functional canvas library",
   "main": "index.js",
   "scripts": {
+    "start": "serve examples",
     "test": "ava",
     "build": "webpack"
   },

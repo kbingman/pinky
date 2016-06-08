@@ -3,6 +3,7 @@
 <head>
     <title>Pinky Canvas Examples</title>
     <meta name="viewport" content="width=device-width">
+    <link href="/app.css" rel="stylesheet">
 </head>
 <body class="desktop-layout" style="margin: 0;">
     <div class="container">
@@ -11,14 +12,10 @@
 
     <script type="text/javascript" src="/pinky.js"></script>
     <script type="text/javascript">
-      let { canvas, primitives } = Pinky;
-      let width = window.innerWidth;
-      let height = window.innerHeight;
-      let ctx = canvas.init(document.getElementById('canvas'), { width, height });
-
-      const factory = function (ctx, fn) {
-        return (options) => fn(ctx, options);
-      };
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      const canvas = document.getElementById('canvas');
+      const draw = Pinky.init(canvas, { width, height, ratio: 2 })
     </script>
 </body>
 </html>

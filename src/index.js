@@ -1,24 +1,20 @@
-import * as canvas from './canvas';
+import factory from './init';
 import * as primitives from './primitives';
 
-const contextify = function (context) {
+const contextify = function (context, key) {
   return (options) => {
     let fn = primitives[key];
     return fn(context, options);
   };
 }
 
-const factory = function (context) {
-  const draw = Object.keys(primitives).reduce((memo, key) => {
-    memo[key] = contextify(context);
+const init = function (canvas, options) {
+  const context = factory(canvas, options);
+
+  return Object.keys(primitives).reduce((memo, key) => {
+    memo[key] = contextify(context, key);
     return memo;
   }, {});
-
-  const canvasy = Object.keys(primitives).reduce((memo, key) => {
-    memo[key] = contextify(context);;
-  }, {});
-
-  return { draw, canvasy }
 }
 
-export { canvas, primitives };
+export { init };
