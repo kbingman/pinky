@@ -1,6 +1,6 @@
 import test from 'ava';
-import { context } from './helpers/mock-context';
-import { ellipse, clear } from '../src/primitives';
+import { context } from '../helpers/mock-context';
+import { ellipse } from '../../src/primitives';
 
 test.beforeEach(t => {
   ellipse(context, { x: 10, y: 10, rx: 2, ry: 2.5 });
@@ -26,9 +26,4 @@ test('calls the ellipse method with the default angle', (t) => {
 test('calls the ellipse method with the default angle', (t) => {
   ellipse(context, {x: 10, y: 10, rx: 2, ry: 2.5, angle: 10});
   t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 10));
-});
-
-test('clear canvas', t => {
-  clear(context, { width: 256, height: 256 });
-  t.true(context.clearRect.calledWith(0, 0, 256, 256));
 });

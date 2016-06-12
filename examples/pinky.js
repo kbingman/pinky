@@ -141,121 +141,168 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.circle = circle;
 	exports.dot = dot;
 	exports.ellipse = ellipse;
-	exports.crosshair = crosshair;
+	exports.rectangle = rectangle;
+	exports.text = text;
 	exports.line = line;
 	exports.quadraticCurve = quadraticCurve;
 	var PI = Math.PI;
 	var TAU = Math.PI * 2;
 
-	/**
-	 * Clear canvas
-	 */
-	function clear(context, _ref) {
-	  var width = _ref.width;
-	  var height = _ref.height;
+	function setup(context, _ref) {
+	  var color = _ref.color;
+	  var stroke = _ref.stroke;
 
-	  context.clearRect(0, 0, width, height);
-	};
-
-	function circle(context, _ref2) {
-	  var x = _ref2.x;
-	  var y = _ref2.y;
-	  var radius = _ref2.radius;
-	  var color = _ref2.color;
-	  var stroke = _ref2.stroke;
-	  var fill = _ref2.fill;
-	  var percentage = _ref2.percentage;
-
-	  var radians = percentage ? percentage * TAU : TAU;
-
-	  context.beginPath();
+	  context.strokeStyle = color || 'white';
 	  context.lineWidth = stroke || 1;
-	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.7)';
 
-	  context.arc(x, y, radius, 0, radians, false);
+	  return context;
+	}
+
+	function draw(context, _ref2) {
+	  var fill = _ref2.fill;
+
 	  context.stroke();
 	  if (fill) {
 	    context.fillStyle = fill;
 	    context.fill();
 	  }
+
+	  return context;
 	}
 
-	function dot(context, _ref3) {
-	  var x = _ref3.x;
-	  var y = _ref3.y;
-	  var radius = _ref3.radius;
-	  var color = _ref3.color;
+	/**
+	 * Clear canvas
+	 */
+	function clear(context, _ref3) {
+	  var width = _ref3.width;
+	  var height = _ref3.height;
 
-	  circle(context, { x: x, y: y, radius: radius, fill: color });
-	}
+	  context.clearRect(0, 0, width, height);
+	};
 
-	function ellipse(context, _ref4) {
+	function circle(context, _ref4) {
 	  var x = _ref4.x;
 	  var y = _ref4.y;
-	  var radiusX = _ref4.radiusX;
-	  var radiusY = _ref4.radiusY;
+	  var r = _ref4.r;
+	  var percentage = _ref4.percentage;
 	  var color = _ref4.color;
-	  var angle = _ref4.angle;
 	  var stroke = _ref4.stroke;
+	  var fill = _ref4.fill;
 
-	  var diff = radiusX - radiusY;
+	  var radians = percentage ? percentage * TAU : TAU;
+	  context = setup(context, { color: color, stroke: stroke });
+
+	  context.beginPath();
+	  context.arc(x, y, r, 0, radians, false);
+
+	  draw(context, { fill: fill });
+	}
+
+	function dot(context, _ref5) {
+	  var x = _ref5.x;
+	  var y = _ref5.y;
+	  var r = _ref5.r;
+	  var color = _ref5.color;
+
+	  circle(context, { x: x, y: y, r: r, fill: color });
+	}
+
+	function ellipse(context, _ref6) {
+	  var x = _ref6.x;
+	  var y = _ref6.y;
+	  var rx = _ref6.rx;
+	  var ry = _ref6.ry;
+	  var color = _ref6.color;
+	  var angle = _ref6.angle;
+	  var stroke = _ref6.stroke;
+	  var fill = _ref6.fill;
+
+	  var diff = rx - ry;
 
 	  x = x + diff / 2;
 	  angle = angle || 0;
 
+	  context = setup(context, { color: color, stroke: stroke });
 	  context.beginPath();
-	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-	  context.lineWidth = stroke;
-	  context.ellipse(x, y, radiusX, radiusY, angle, 0, 2 * Math.PI); //
-	  context.stroke();
+	  context.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI); //
+
+	  draw(context, { fill: fill });
 	}
 
-	function crosshair(context, _ref5) {
-	  var x = _ref5.x;
-	  var y = _ref5.y;
-	  var size = _ref5.size;
-	  var color = _ref5.color;
-
-	  var l = size ? size / 2 : 20;
-
-	  context.beginPath();
-	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-	  context.moveTo(x - l, y);
-	  context.lineTo(x + l, y);
-	  context.moveTo(x, y - l);
-	  context.lineTo(x, y + l);
-	  context.stroke();
-	}
-
-	function line(context, _ref6) {
-	  var x = _ref6.x;
-	  var y = _ref6.y;
-	  var x1 = _ref6.x1;
-	  var y1 = _ref6.y1;
-	  var color = _ref6.color;
-	  var stroke = _ref6.stroke;
-
-	  context.beginPath();
-	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-	  context.moveTo(x, y);
-	  context.lineTo(x1, y1);
-	  context.stroke();
-	}
-
-	function quadraticCurve(context, _ref7) {
+	function rectangle(context, _ref7) {
 	  var x = _ref7.x;
 	  var y = _ref7.y;
-	  var x1 = _ref7.x1;
-	  var y1 = _ref7.y1;
-	  var xc = _ref7.xc;
-	  var yc = _ref7.yc;
+	  var w = _ref7.w;
+	  var h = _ref7.h;
 	  var color = _ref7.color;
+	  var stroke = _ref7.stroke;
+	  var fill = _ref7.fill;
+
+	  context = setup(context, { color: color, stroke: stroke });
+	  context.beginPath();
+	  context.rect(x, y, w, h);
+
+	  draw(context, { fill: fill });
+	}
+
+	function text(context, _ref8) {
+	  var x = _ref8.x;
+	  var y = _ref8.y;
+	  var text = _ref8.text;
+	  var font = _ref8.font;
+	  var fill = _ref8.fill;
+
+	  context.fillStyle = fill || 'white';
+	  context.font = '' + font;
+	  context.fillText(text, x, y);
+	}
+
+	// export function crosshair (context, { x, y, size, color }) {
+	//   const l = size ? size / 2 : 20;
+	//
+	//   context.beginPath();
+	//   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
+	//   context.moveTo(x - l, y);
+	//   context.lineTo(x + l, y);
+	//   context.moveTo(x, y - l);
+	//   context.lineTo(x, y + l);
+	//   context.stroke();
+	// }
+
+	function line(context, _ref9) {
+	  var x = _ref9.x;
+	  var y = _ref9.y;
+	  var x1 = _ref9.x1;
+	  var y1 = _ref9.y1;
+	  var color = _ref9.color;
+	  var stroke = _ref9.stroke;
+
+	  context = setup(context, { color: color, stroke: stroke });
 
 	  context.beginPath();
-	  context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
+	  context.moveTo(x, y);
+	  context.lineTo(x1, y1);
+
+	  draw(context);
+	}
+
+	function quadraticCurve(context, _ref10) {
+	  var x = _ref10.x;
+	  var y = _ref10.y;
+	  var x1 = _ref10.x1;
+	  var y1 = _ref10.y1;
+	  var xc = _ref10.xc;
+	  var yc = _ref10.yc;
+	  var color = _ref10.color;
+	  var stroke = _ref10.stroke;
+
+	  context = setup(context, { color: color, stroke: stroke });
+
+	  context.beginPath();
 	  context.moveTo(x, y);
 	  context.quadraticCurveTo(xc, yc, x1, y1);
-	  context.stroke();
+
+	  draw(context);
 	}
 
 /***/ }
