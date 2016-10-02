@@ -15,7 +15,9 @@
       const width = window.innerWidth;
       const height = window.innerHeight;
       const canvas = document.getElementById('canvas');
-      const draw = Pinky.init(canvas, { width, height, ratio: 2 })
+      const pinky = Pinky.init(canvas, { width, height, ratio: 2 });
+
+      window.pinky = pinky;
     </script>
 </body>
 </html>

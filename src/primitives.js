@@ -1,101 +1,120 @@
 const PI = Math.PI;
 const TAU = Math.PI * 2;
 
-function setup (context, { color, stroke }) {
-  if (stroke !== null) {
-    context.strokeStyle = color || 'white';
-    context.lineWidth = stroke || 1;
-  }
+const setup = function (context, { color, stroke }) {
+    if (stroke !== null) {
+        context.strokeStyle = color || 'white';
+        context.lineWidth = stroke || 1;
+    }
 
-  return context;
+    return context;
 }
 
-function draw (context, { fill }) {
-  context.stroke();
-  if (fill) {
-    context.fillStyle = fill;
-    context.fill();
-  }
+const draw = function (context, options) {
+    const fill = options && options.fill;
+    context.stroke();
 
-  return context;
+    if (fill) {
+        context.fillStyle = fill;
+        context.fill();
+    }
+
+    return context;
 }
 
 /**
  * Clear canvas
  */
-export function clear (context, { width, height }) {
-  context.clearRect(0, 0, width, height);
+const clear = function    (context, { width, height }) {
+    context.clearRect(0, 0, width, height);
 };
 
-export function circle (context, { x, y, r, percentage, color, stroke, fill, rotate }) {
-  const radians = percentage ? percentage * TAU : TAU;
-  context = setup(context, { color, stroke });
+/**
+ * Draw circle
+ */
+const circle = function (context, { x, y, r, percentage, color, stroke, fill, rotate }) {
+    const radians = percentage ? percentage * TAU : TAU;
+    context = setup(context, { color, stroke });
 
-  context.beginPath();
-  context.arc(x, y, r, 0, radians, false);
+    context.beginPath();
+    context.arc(x, y, r, 0, radians, false);
 
-  draw(context, { fill: fill });
+    draw(context, { fill: fill });
 }
 
-export function dot (context, { x, y, r, color }) {
-  circle(context, { x, y, r, fill: color, stroke: null });
+/**
+ * Draw dot
+ */
+const dot = function (context, { x, y, r, color }) {
+    circle(context, { x, y, r, fill: color, stroke: null });
 }
 
-export function ellipse (context, { x, y, rx, ry, color, angle, stroke, fill }) {
-  const diff = rx - ry;
+/**
+ * Draw ellipse
+ */
+const ellipse = function (context, { x, y, rx, ry, color, angle, stroke, fill }) {
+    const diff = rx - ry;
 
-  x = x + (diff / 2);
-  angle = angle || 0;
+    x = x + (diff / 2);
+    angle = angle || 0;
 
-  context = setup(context, { color, stroke });
-  context.beginPath();
-  context.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI); //
+    context = setup(context, { color, stroke });
+    context.beginPath();
+    context.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI); //
 
-  draw(context, { fill });
+    draw(context, { fill });
 }
 
-export function rectangle (context, { x, y, w, h, color, stroke, fill }) {
-  context = setup(context, { color, stroke });
-  context.beginPath();
-  context.rect(x, y, w, h);
+/**
+ * Draw rectangle
+ */
+const rectangle = function (context, { x, y, w, h, color, stroke, fill }) {
+    context = setup(context, { color, stroke });
+    context.beginPath();
+    context.rect(x, y, w, h);
 
-  draw(context, { fill });
+    draw(context, { fill });
 }
 
-export function text (context, { x, y, text, font, fill }) {
-  context.fillStyle = fill || 'white';
-  context.font = `${font}`;
-  context.fillText(text, x, y);
+/**
+ * Render text
+ */
+const text = function (context, { x, y, text, font, fill, size, weight }) {
+    font = font || 'Helvetica';
+    size = size || 16;
+    weight = weight || 400;
+
+    const settings = `${weight} ${size}px ${font}`;
+
+    context.fillStyle = fill || 'white';
+    context.font = settings;
+    context.fillText(text, x, y);
 }
 
-// export function crosshair (context, { x, y, size, color }) {
-//   const l = size ? size / 2 : 20;
-//
-//   context.beginPath();
-//   context.strokeStyle = color || 'hsla(0, 100%, 100%, 0.3)';
-//   context.moveTo(x - l, y);
-//   context.lineTo(x + l, y);
-//   context.moveTo(x, y - l);
-//   context.lineTo(x, y + l);
-//   context.stroke();
-// }
+/**
+ * Draw line
+ */
+const line = function (context, { x, y, x1, y1, color, stroke }) {
+    context = setup(context, { color, stroke });
 
-export function line (context, { x, y, x1, y1, color, stroke }) {
-  context = setup(context, { color, stroke });
+    context.beginPath();
+    context.moveTo(x, y);
+    context.lineTo(x1, y1);
 
-  context.beginPath();
-  context.moveTo(x, y);
-  context.lineTo(x1, y1);
+    draw(context);
+};
 
-  draw(context);
-}
+/**
+ * Draw curve
+ */
+const quadraticCurve = function (context, { x, y, x1, y1, xc, yc, color, stroke }) {
+    context = setup(context, { color, stroke });
 
-export function quadraticCurve (context, { x, y, x1, y1, xc, yc, color, stroke }) {
-  context = setup(context, { color, stroke });
+    context.beginPath();
+    context.moveTo(x, y);
+    context.quadraticCurveTo(xc, yc, x1, y1);
 
-  context.beginPath();
-  context.moveTo(x, y);
-  context.quadraticCurveTo(xc, yc, x1, y1);
+    draw(context);
+};
 
-  draw(context);
-}
+export { clear, circle, ellipse, dot, rectangle, text, line, quadraticCurve };

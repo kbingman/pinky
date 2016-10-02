@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "serve examples",
-    "test": "ava",
+    "test": "ava --verbose",
+    "test:coverage": "nyc npm run test",
     "build": "webpack"
   },
   "keywords": [
@@ -14,13 +15,12 @@
   "author": "Keith Bingman",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.15.1",
+    "ava": "^0.16.0",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.1",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
-    "tap-mocha-reporter": "0.0.24",
-    "jsdom": "^9.2.1",
+    "jsdom": "^9.5.0",
     "serve": "^1.4.0",
     "sinon": "^1.17.4",
     "webpack": "^1.13.1"
@@ -32,7 +32,5 @@
     ],
     "babel": "inherit"
   },
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
