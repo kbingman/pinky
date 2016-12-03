@@ -3,7 +3,7 @@ import * as primitives from './primitives';
 
 const contextify = function (context, key) {
   return (options) => {
-    let fn = primitives[key];
+    const fn = primitives[key];
     return fn(context, options);
   };
 }

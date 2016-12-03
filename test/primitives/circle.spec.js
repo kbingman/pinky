@@ -3,7 +3,7 @@ import { context } from '../helpers/mock-context';
 import { circle } from '../../src/primitives';
 
 test.beforeEach(t => {
-  circle(context, { x: 10, y: 10, r: 2 });
+  circle(context, { x: 10, y: 10, r: 2, strokeStyle: 'white' });
 });
 
 test('calls the beginPath method', (t) => {
