@@ -1,4 +1,4 @@
-const PI = Math.PI;
+const { PI } = Math;
 const TAU = Math.PI * 2;
 
 /* function applyStyles (context, { strokeStyle, lineWidth }) {
