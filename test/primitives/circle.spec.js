@@ -2,7 +2,7 @@ import test from 'ava';
 import { context } from '../helpers/mock-context';
 import { circle } from '../../src/primitives';
 
-const drawCircle = (options = {}, styles = {}) => {
+const drawCircle = (options = {}, styles = { strokeStyle: 'white' }) => {
     const { x = 10, y = 10, r = 2 } = options;
     circle(context, { x, y, r }, styles);
 };
