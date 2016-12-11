@@ -12,14 +12,15 @@ test('calls the beginPath method', t => {
   t.true(context.beginPath.called);
 });
 
-test('calls the stroke method', t => {
-  drawCircle();
+test('calls the stroke method if a lineWidth is applied', t => {
+  drawCircle({}, { lineWidth: 1, strokeStyle: 'lime' });
   t.true(context.stroke.called);
 });
 
-test.skip('does not call stroke when none is given', t => {
-   drawCircle({ strokeStyle: null });
-   t.true(context.strokeStyle === null); 
+test('does not call the stroke method if a lineWidth is not applied', t => {
+  drawCircle({}, { lineWidth: 0, strokeStyle: 'lime' });
+
+  t.false(context.stroke.called);
 });
 
 test('sets the default color', t => {
