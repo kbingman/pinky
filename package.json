@@ -4,10 +4,10 @@
   "description": "Simple functional canvas library",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npm run build & serve examples",
     "test": "ava",
     "test:coverage": "nyc ava",
-    "build": "babel src -q -d dist"
+    "build": "babel src -q -d dist",
+    "prepublish": "npm run test && npm run build"
   },
   "keywords": [
     "canvas"
