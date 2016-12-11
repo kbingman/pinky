@@ -7,6 +7,10 @@ const drawCircle = (options = {}, styles = { strokeStyle: 'white' }) => {
     circle(context, { x, y, r }, styles);
 };
 
+test.afterEach(t => {
+    context.stroke.reset();
+});
+
 test('calls the beginPath method', t => {
   drawCircle();
   t.true(context.beginPath.called);

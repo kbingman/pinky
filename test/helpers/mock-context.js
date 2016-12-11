@@ -8,7 +8,6 @@ const context = {
   fill: spy(),
   scale: spy(),
   stroke: spy(),
-  strokeStyle: null
 }
 
 const createMockCanvas = function (context) {
@@ -17,7 +16,11 @@ const createMockCanvas = function (context) {
        return context;
     }
     return canvas;
-}
+};
+
+const restoreMockCanvas = function (context) {
+    context.stroke.restore();
+};
 
 const canvas = createMockCanvas(context);
 

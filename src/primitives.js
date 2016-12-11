@@ -13,7 +13,6 @@ function draw (context, { fillStyle, strokeStyle, lineWidth }) {
     context.lineWidth = lineWidth;
     context.fillStyle = fillStyle;
     if (lineWidth) {
-        console.log(lineWidth);
         context.stroke();
     }
     context.fill();
