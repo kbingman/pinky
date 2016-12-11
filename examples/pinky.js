@@ -112,9 +112,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Basic fullscreen canvas
 	 */
 	function init(canvas, _ref) {
-	  var width = _ref.width,
-	      height = _ref.height,
-	      ratio = _ref.ratio;
+	  var width = _ref.width;
+	  var height = _ref.height;
+	  var ratio = _ref.ratio;
 
 	  var context = canvas.getContext('2d');
 	  ratio = ratio || 1;
@@ -156,14 +156,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	} */
 
 	function draw(context, _ref) {
-	    var fillStyle = _ref.fillStyle,
-	        strokeStyle = _ref.strokeStyle,
-	        lineWidth = _ref.lineWidth;
+	    var fillStyle = _ref.fillStyle;
+	    var strokeStyle = _ref.strokeStyle;
+	    var lineWidth = _ref.lineWidth;
 
 	    context.strokeStyle = strokeStyle;
 	    context.lineWidth = lineWidth;
+	    console.log(lineWidth);
 	    context.fillStyle = fillStyle;
-	    context.stroke();
+	    if (lineWidth) {
+	        context.stroke();
+	    }
 	    context.fill();
 
 	    return context;
@@ -173,17 +176,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Clear canvas
 	 */
 	function clear(context, _ref2) {
-	    var width = _ref2.width,
-	        height = _ref2.height;
+	    var width = _ref2.width;
+	    var height = _ref2.height;
 
 	    context.clearRect(0, 0, width, height);
 	}
 
 	function circle(context, _ref3) {
-	    var x = _ref3.x,
-	        y = _ref3.y,
-	        r = _ref3.r,
-	        percentage = _ref3.percentage;
+	    var x = _ref3.x;
+	    var y = _ref3.y;
+	    var r = _ref3.r;
+	    var percentage = _ref3.percentage;
 	    var styles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 	    var radians = percentage ? percentage * TAU : TAU;
@@ -195,11 +198,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function ellipse(context, _ref4) {
-	    var x = _ref4.x,
-	        y = _ref4.y,
-	        rx = _ref4.rx,
-	        ry = _ref4.ry,
-	        angle = _ref4.angle;
+	    var x = _ref4.x;
+	    var y = _ref4.y;
+	    var rx = _ref4.rx;
+	    var ry = _ref4.ry;
+	    var angle = _ref4.angle;
 	    var styles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 	    var diff = rx - ry;
@@ -214,10 +217,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function rectangle(context, _ref5) {
-	    var x = _ref5.x,
-	        y = _ref5.y,
-	        w = _ref5.w,
-	        h = _ref5.h;
+	    var x = _ref5.x;
+	    var y = _ref5.y;
+	    var w = _ref5.w;
+	    var h = _ref5.h;
 	    var styles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 	    context.beginPath();
@@ -227,12 +230,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function text(context, _ref6, _ref7) {
-	    var x = _ref6.x,
-	        y = _ref6.y,
-	        text = _ref6.text;
-	    var font = _ref7.font,
-	        fillStyle = _ref7.fillStyle,
-	        strokeStyle = _ref7.strokeStyle;
+	    var x = _ref6.x;
+	    var y = _ref6.y;
+	    var text = _ref6.text;
+	    var font = _ref7.font;
+	    var fillStyle = _ref7.fillStyle;
+	    var strokeStyle = _ref7.strokeStyle;
 
 	    context.fillStyle = fillStyle;
 	    context.font = font;
@@ -252,10 +255,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	// }
 
 	function line(context, _ref8) {
-	    var x = _ref8.x,
-	        y = _ref8.y,
-	        x1 = _ref8.x1,
-	        y1 = _ref8.y1;
+	    var x = _ref8.x;
+	    var y = _ref8.y;
+	    var x1 = _ref8.x1;
+	    var y1 = _ref8.y1;
 	    var styles = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
 
@@ -267,12 +270,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	function quadraticCurve(context, _ref9, styles) {
-	    var x = _ref9.x,
-	        y = _ref9.y,
-	        x1 = _ref9.x1,
-	        y1 = _ref9.y1,
-	        xc = _ref9.xc,
-	        yc = _ref9.yc;
+	    var x = _ref9.x;
+	    var y = _ref9.y;
+	    var x1 = _ref9.x1;
+	    var y1 = _ref9.y1;
+	    var xc = _ref9.xc;
+	    var yc = _ref9.yc;
 
 
 	    context.beginPath();
