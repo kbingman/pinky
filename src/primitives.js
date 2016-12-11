@@ -11,8 +11,11 @@ const TAU = Math.PI * 2;
 function draw (context, { fillStyle, strokeStyle, lineWidth }) {
     context.strokeStyle = strokeStyle;
     context.lineWidth = lineWidth;
+    console.log(lineWidth);
     context.fillStyle = fillStyle;
-    context.stroke();
+    if (lineWidth) {
+        context.stroke();
+    }
     context.fill();
 
     return context;
