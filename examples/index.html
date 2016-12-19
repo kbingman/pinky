@@ -12,10 +12,24 @@
 
     <script type="text/javascript" src="/pinky.js"></script>
     <script type="text/javascript">
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const canvas = document.getElementById('canvas');
-      const draw = Pinky.init(canvas, { width, height, ratio: 2 })
+        const { innerWidth, innerHeight, devicePixelRatio } = window;
+
+        const canvas = document.getElementById('canvas');
+        setTimeout(function() {
+            const stage = Pinky.init(canvas, { 
+                width: innerWidth,
+                height: innerHeight,
+                ratio: devicePixelRatio 
+            });
+            const position = {
+                x: innerWidth / 2,
+                y: innerHeight / 2,
+                r: 42
+            };
+            const styles = { fillStyle: '#efefef', lineWidth: 5, strokeStyle: 'lime' };
+            stage.circle(position, styles);
+        }, 10);
+        
     </script>
 </body>
 </html>
