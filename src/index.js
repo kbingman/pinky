@@ -6,7 +6,7 @@ const contextify = function (context, key) {
         const fn = primitives[key];
         return fn(context, options, styles);
     };
-}
+};
 
 const init = function (canvas, options) {
     const context = factory(canvas, options);
@@ -15,6 +15,8 @@ const init = function (canvas, options) {
         memo[key] = contextify(context, key);
         return memo;
     }, {});
-}
+};
 
-export { init };
+const Pinky = { init };
+
+export default Pinky;
