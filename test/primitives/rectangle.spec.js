@@ -3,7 +3,10 @@ import { context } from '../helpers/mock-context';
 import { rectangle } from '../../src/primitives';
 
 test.beforeEach(t => {
-    rectangle(context, { x: 10, y: 10, w: 20, h: 20 });
+    rectangle(context,
+        { x: 10, y: 10, w: 20, h: 20 },
+        { lineWidth: 0.5, strokeStyle: 'black' }
+    );
 });
 
 test('calls the beginPath method', (t) => {
@@ -15,7 +18,7 @@ test('calls the stroke method', (t) => {
 });
 
 test('sets the default color', t => {
-    t.true(context.strokeStyle === 'white');
+    t.true(context.strokeStyle === 'black');
 });
 
 test('receives the rectangle coordinates', t => {

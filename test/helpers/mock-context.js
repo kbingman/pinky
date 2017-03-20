@@ -1,6 +1,14 @@
 import { spy } from 'sinon';
 
-const context = {
+const createMockCanvas = function (context) {
+    const canvas = document.createElement('CANVAS');
+    canvas.getContext = () => {
+       return context;
+    }
+    return canvas;
+}
+
+export const context = {
     arc: spy(),
     beginPath: spy(),
     clearRect: spy(),
@@ -17,15 +25,4 @@ const context = {
     quadraticCurveTo: spy()
 };
 
-const createMockCanvas = function (context) {
-    const canvas = document.createElement('CANVAS');
-    canvas.getContext = () => {
-       return context;
-    }
-    return canvas;
-}
-
-const canvas = createMockCanvas(context);
-
-
-export { context, canvas };
+export const canvas = createMockCanvas(context);
