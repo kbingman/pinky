@@ -1,13 +1,12 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-exports.primitives = exports.canvas = undefined;
 
-var _canvas = require('./canvas');
+var _init = require('./init');
 
-var canvas = _interopRequireWildcard(_canvas);
+var _init2 = _interopRequireDefault(_init);
 
 var _primitives = require('./primitives');
 
@@ -15,25 +14,24 @@ var primitives = _interopRequireWildcard(_primitives);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var contextify = function contextify(context) {
-  return function (options) {
-    var fn = primitives[key];
-    return fn(context, options);
-  };
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var contextify = function contextify(context, key) {
+    return function (options, styles) {
+        var fn = primitives[key];
+        return fn(context, options, styles);
+    };
 };
 
-var factory = function factory(context) {
-  var draw = Object.keys(primitives).reduce(function (memo, key) {
-    memo[key] = contextify(context);
-    return memo;
-  }, {});
+var init = function init(canvas, options) {
+    var context = (0, _init2.default)(canvas, options);
 
-  var canvasy = Object.keys(primitives).reduce(function (memo, key) {
-    memo[key] = contextify(context);;
-  }, {});
-
-  return { draw: draw, canvasy: canvasy };
+    return Object.keys(primitives).reduce(function (memo, key) {
+        memo[key] = contextify(context, key);
+        return memo;
+    }, { canvas: canvas, options: options });
 };
 
-exports.canvas = canvas;
-exports.primitives = primitives;
+var Pinky = { init: init };
+
+exports.default = Pinky;

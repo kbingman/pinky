@@ -1,6 +1,6 @@
 import test from 'ava';
 import { context, canvas } from './helpers/mock-context';
-import { init } from '../src/index';
+import init from '../src/init';
 
 test('it should set the height and width of the canvas', t => {
     const ctx = init(canvas, { width: 256, height: 256, ratio: 1 });

@@ -64,9 +64,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.init = undefined;
 
 	var _primitives = __webpack_require__(2);
 
@@ -74,236 +73,237 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+	/**
+	 * @param { Canvas } - canvas DOM object
+	 * @param { Object } - options
+	 */
 	var factory = function factory(canvas, _ref) {
-	  var width = _ref.width;
-	  var height = _ref.height;
-	  var ratio = _ref.ratio;
+	    var width = _ref.width,
+	        height = _ref.height,
+	        ratio = _ref.ratio,
+	        devicePixelRatio = _ref.devicePixelRatio;
 
-	  var context = canvas.getContext('2d');
-	  ratio = ratio || 1;
+	    var context = canvas.getContext('2d');
+	    ratio = devicePixelRatio || ratio || 1;
 
-	  canvas.width = width * ratio;
-	  canvas.height = height * ratio;
-	  canvas.style.width = width + 'px';
-	  canvas.style.height = height + 'px';
-	  context.scale(ratio, ratio);
+	    canvas.width = width * ratio;
+	    canvas.height = height * ratio;
+	    canvas.style.width = width + 'px';
+	    canvas.style.height = height + 'px';
+	    context.scale(ratio, ratio);
 
-	  return context;
+	    return context;
 	};
 
+	/**
+	 * @param { Context } - context
+	 * @param { String } - key
+	 */
 	var contextify = function contextify(context, key) {
-	  return function (options) {
-	    var fn = primitives[key];
-	    return fn(context, options);
-	  };
+	    return function (options) {
+	        var func = primitives[key];
+	        return func(context, options);
+	    };
 	};
 
+	/**
+	 * @param { Canvas } - canvas DOM object
+	 * @param { Object } - options
+	 */
 	var init = function init(canvas, options) {
-	  var context = factory(canvas, options);
-	  var methods = { canvas: canvas, context: context };
+	    var context = factory(canvas, options);
 
-	  return Object.keys(primitives).reduce(function (memo, key) {
-	    memo[key] = contextify(context, key);
-	    return memo;
-	  }, methods);
+	    return Object.keys(primitives).reduce(function (memo, key) {
+	        memo[key] = contextify(context, key);
+	        return memo;
+	    }, { canvas: canvas, context: context });
 	};
 
-	exports.init = init;
+	var Pinky = { init: init };
+
+	exports.default = Pinky;
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.clear = clear;
+	exports.circle = circle;
+	exports.ellipse = ellipse;
+	exports.rectangle = rectangle;
+	exports.text = text;
+	exports.line = line;
+	exports.quadraticCurve = quadraticCurve;
 	var PI = Math.PI;
+
 	var TAU = Math.PI * 2;
 
-	var setup = function setup(context, _ref) {
-	    var color = _ref.color;
-	    var stroke = _ref.stroke;
+	/**
+	 * @private - Apply Options
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 */
+	function applyOptions(context) {
+	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	    if (stroke !== null) {
-	        context.strokeStyle = color || 'white';
-	        context.lineWidth = stroke || 1;
-	    }
+	    return Object.keys(options).reduce(function (context, key) {
+	        context[key] = options[key];
 
-	    return context;
-	};
-
-	var draw = function draw(context, options) {
-	    var fill = options && options.fill;
-	    context.stroke();
-
-	    if (fill) {
-	        context.fillStyle = fill;
-	        context.fill();
-	    }
-
-	    return context;
-	};
+	        return context;
+	    }, context);
+	}
 
 	/**
-	 * Clear canvas
+	 * @private - draw
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
 	 */
-	var clear = function clear(context, _ref2) {
-	    var width = _ref2.width;
-	    var height = _ref2.height;
+	function draw(context) {
+	    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+	    context = applyOptions(context, options);
+
+	    if (options.lineWidth) {
+	        context.stroke();
+	    }
+	    context.fill();
+
+	    return context;
+	}
+
+	/**
+	 * Clear
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 */
+	function clear(context, _ref) {
+	    var width = _ref.width,
+	        height = _ref.height;
 
 	    context.clearRect(0, 0, width, height);
-	};
+	}
 
 	/**
-	 * Draw circle
+	 * Ellipse
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
 	 */
-	var circle = function circle(context, _ref3) {
-	    var x = _ref3.x;
-	    var y = _ref3.y;
-	    var r = _ref3.r;
-	    var percentage = _ref3.percentage;
-	    var color = _ref3.color;
-	    var stroke = _ref3.stroke;
-	    var fill = _ref3.fill;
-	    var rotate = _ref3.rotate;
+	function circle(context, _ref2, options) {
+	    var x = _ref2.x,
+	        y = _ref2.y,
+	        r = _ref2.r,
+	        percentage = _ref2.percentage;
 
 	    var radians = percentage ? percentage * TAU : TAU;
-	    context = setup(context, { color: color, stroke: stroke });
 
 	    context.beginPath();
 	    context.arc(x, y, r, 0, radians, false);
 
-	    draw(context, { fill: fill });
-	};
+	    draw(context, options);
+	}
 
 	/**
-	 * Draw dot
+	 * Ellipse
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
 	 */
-	var dot = function dot(context, _ref4) {
-	    var x = _ref4.x;
-	    var y = _ref4.y;
-	    var r = _ref4.r;
-	    var color = _ref4.color;
-
-	    circle(context, { x: x, y: y, r: r, fill: color, stroke: null });
-	};
-
-	/**
-	 * Draw ellipse
-	 */
-	var ellipse = function ellipse(context, _ref5) {
-	    var x = _ref5.x;
-	    var y = _ref5.y;
-	    var rx = _ref5.rx;
-	    var ry = _ref5.ry;
-	    var color = _ref5.color;
-	    var angle = _ref5.angle;
-	    var stroke = _ref5.stroke;
-	    var fill = _ref5.fill;
+	function ellipse(context, _ref3, options) {
+	    var x = _ref3.x,
+	        y = _ref3.y,
+	        rx = _ref3.rx,
+	        ry = _ref3.ry,
+	        angle = _ref3.angle;
 
 	    var diff = rx - ry;
 
 	    x = x + diff / 2;
 	    angle = angle || 0;
 
-	    context = setup(context, { color: color, stroke: stroke });
 	    context.beginPath();
-	    context.ellipse(x, y, rx, ry, angle, 0, 2 * Math.PI); //
+	    context.ellipse(x, y, rx, ry, angle, 0, TAU); //
 
-	    draw(context, { fill: fill });
-	};
+	    draw(context, options);
+	}
 
 	/**
-	 * Draw rectangle
+	 * Text
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
 	 */
-	var rectangle = function rectangle(context, _ref6) {
-	    var x = _ref6.x;
-	    var y = _ref6.y;
-	    var w = _ref6.w;
-	    var h = _ref6.h;
-	    var color = _ref6.color;
-	    var stroke = _ref6.stroke;
-	    var fill = _ref6.fill;
+	function rectangle(context, _ref4, options) {
+	    var x = _ref4.x,
+	        y = _ref4.y,
+	        w = _ref4.w,
+	        h = _ref4.h;
 
-	    context = setup(context, { color: color, stroke: stroke });
 	    context.beginPath();
 	    context.rect(x, y, w, h);
 
-	    draw(context, { fill: fill });
-	};
+	    draw(context, options);
+	}
 
 	/**
-	 * Render text
+	 * Text
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
 	 */
-	var text = function text(context, _ref7) {
-	    var x = _ref7.x;
-	    var y = _ref7.y;
-	    var _text = _ref7.text;
-	    var font = _ref7.font;
-	    var fill = _ref7.fill;
-	    var size = _ref7.size;
-	    var weight = _ref7.weight;
+	function text(context, _ref5, options) {
+	    var x = _ref5.x,
+	        y = _ref5.y,
+	        text = _ref5.text;
 
-	    font = font || 'Helvetica';
-	    size = size || 16;
-	    weight = weight || 100;
-
-	    var settings = weight + ' ' + size + 'px ' + font;
-
-	    context.fillStyle = fill || 'white';
-	    context.font = settings;
-	    context.fillText(_text, x, y);
-	};
+	    context = applyOptions(context, options);
+	    context.fillText(text, x, y);
+	}
 
 	/**
-	 * Draw line
+	 * Draw Line
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
 	 */
-	var line = function line(context, _ref8) {
-	    var x = _ref8.x;
-	    var y = _ref8.y;
-	    var x1 = _ref8.x1;
-	    var y1 = _ref8.y1;
-	    var color = _ref8.color;
-	    var stroke = _ref8.stroke;
-
-	    context = setup(context, { color: color, stroke: stroke });
+	function line(context, _ref6, options) {
+	    var x = _ref6.x,
+	        y = _ref6.y,
+	        x1 = _ref6.x1,
+	        y1 = _ref6.y1;
 
 	    context.beginPath();
 	    context.moveTo(x, y);
 	    context.lineTo(x1, y1);
 
-	    draw(context);
-	};
+	    draw(context, options);
+	}
 
-	var quadraticCurve = function quadraticCurve(context, _ref9) {
-	    var x = _ref9.x;
-	    var y = _ref9.y;
-	    var x1 = _ref9.x1;
-	    var y1 = _ref9.y1;
-	    var xc = _ref9.xc;
-	    var yc = _ref9.yc;
-	    var color = _ref9.color;
-	    var stroke = _ref9.stroke;
-
-	    context = setup(context, { color: color, stroke: stroke });
+	/**
+	 * Draw Quadratic Curve
+	 * @param { Context } - canvas context
+	 * @param { Object } - options
+	 * @param { Object } - styles
+	 */
+	function quadraticCurve(context, _ref7, options) {
+	    var x = _ref7.x,
+	        y = _ref7.y,
+	        x1 = _ref7.x1,
+	        y1 = _ref7.y1,
+	        xc = _ref7.xc,
+	        yc = _ref7.yc;
 
 	    context.beginPath();
 	    context.moveTo(x, y);
 	    context.quadraticCurveTo(xc, yc, x1, y1);
 
-	    draw(context);
-	};
-
-	exports.clear = clear;
-	exports.circle = circle;
-	exports.ellipse = ellipse;
-	exports.dot = dot;
-	exports.rectangle = rectangle;
-	exports.text = text;
-	exports.line = line;
-	exports.quadraticCurve = quadraticCurve;
+	    draw(context, options);
+	}
 
 /***/ }
 /******/ ])
