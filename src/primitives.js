@@ -27,7 +27,7 @@ export function clear (context, { width, height }) {
     context.clearRect(0, 0, width, height);
 }
 
-export function circle (context, { x, y, r, percentage }, styles = {}) {
+export function circle (context, { x, y, r, percentage }, styles) {
     const radians = percentage ? percentage * TAU : TAU;
 
     context.beginPath();
@@ -36,7 +36,7 @@ export function circle (context, { x, y, r, percentage }, styles = {}) {
     draw(context, styles);
 }
 
-export function ellipse (context, { x, y, rx, ry, angle }, styles = {}) {
+export function ellipse (context, { x, y, rx, ry, angle }, styles) {
     const diff = rx - ry;
 
     x = x + (diff / 2);
@@ -48,7 +48,7 @@ export function ellipse (context, { x, y, rx, ry, angle }, styles = {}) {
     draw(context, styles);
 }
 
-export function rectangle (context, { x, y, w, h }, styles = {}) {
+export function rectangle (context, { x, y, w, h }, styles) {
     context.beginPath();
     context.rect(x, y, w, h);
 
@@ -73,7 +73,7 @@ export function text (context, { x, y, text }, { font, fillStyle, strokeStyle })
 //   context.stroke();
 // }
 
-export function line (context, { x, y, x1, y1 }, styles = {}) {
+export function line (context, { x, y, x1, y1 }, styles) {
 
     context.beginPath();
     context.moveTo(x, y);
