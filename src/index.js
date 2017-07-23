@@ -1,7 +1,7 @@
 import * as primitives from './primitives';
 
 /**
- * Basic fullscreen canvas
+ * Basic fullscreen canvas, resized to support Retina screens
  */
 const init = (canvas, { width, height, ratio }) => {
     const context = canvas.getContext('2d');

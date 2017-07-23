@@ -65,12 +65,19 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const Pinky = __webpack_require__(1);
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0____ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_____default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0____);
 
-window.Pinky = Pinky.default;
-module.exports = Pinky;
+
+const { innerWidth: width, innerHeight: height, devicePixelRatio: ratio } = window;
+const canvas = document.getElementById('canvas');
+const pinky = __WEBPACK_IMPORTED_MODULE_0_____default()(canvas, { width, height, ratio });
+
+pinky.circle({ x: width / 2, y: height / 2, r: 4 }, { fillStyle: 'lime' });
 
 
 /***/ }),
@@ -202,9 +209,6 @@ var circle = exports.circle = function circle(context, position, options) {
         start = _position$start === undefined ? 0 : _position$start;
 
     var radians = percentage ? percentage * TAU : TAU;
-
-    console.log(x, y);
-    console.log(options);
 
     context.beginPath();
     context.arc(x, y, r, start, radians, false);

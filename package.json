@@ -4,15 +4,14 @@
   "description": "Simple functional canvas library",
   "main": "dist/index.js",
   "scripts": {
-    "test": "ava",
-    "coverage": "nyc ava",
     "build": "babel src -q -d dist",
-    "watch": "babel src -w -d dist",
-    "prepublish": "npm run test && npm run build"
+    "coverage": "nyc ava",
+    "demo": "webpack --config examples/webpack.config.js && http-server examples",
+    "prepublish": "npm run build",
+    "test": "ava",
+    "watch": "babel src -w -d dist"
   },
-  "keywords": [
-    "canvas"
-  ],
+  "keywords": ["canvas"],
   "author": "Keith Bingman",
   "license": "MIT",
   "devDependencies": {
@@ -24,15 +23,11 @@
     "http-server": "^0.10.0",
     "jsdom": "^9.2.1",
     "nyc": "^10.0.0",
-    "serve": "2.0.0",
     "sinon": "^1.17.4",
     "webpack": "^3.3.0"
   },
   "ava": {
-    "require": [
-      "babel-core/register",
-      "./test/helpers/setup-browser-env.js"
-    ],
+    "require": ["babel-core/register", "./test/helpers/setup-browser-env.js"],
     "babel": "inherit"
   }
 }

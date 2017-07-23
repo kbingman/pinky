@@ -2,9 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './index',
+    entry: './examples/src/index',
     output: {
-        path: path.join(__dirname),
+        path: path.join(__dirname, 'js'),
         filename: 'pinky.js'
     },
     resolve: {

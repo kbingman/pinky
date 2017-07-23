@@ -3,20 +3,17 @@
 <head>
     <title>Pinky Canvas Examples</title>
     <meta name="viewport" content="width=device-width">
-    <link href="/app.css" rel="stylesheet">
+    <style>
+        canvas {
+          background-color: black;
+        }
+    </style>
 </head>
 <body class="desktop-layout" style="margin: 0;">
     <div class="container">
         <canvas id="canvas"></canvas>
     </div>
 
-    <script type="text/javascript" src="/pinky.js"></script>
-    <script type="text/javascript">
-    const { innerWidth: width, innerHeight: height, devicePixelRatio: ratio } = window;
-const canvas = document.getElementById('canvas');
-const pinky = Pinky(canvas, { width, height, ratio });
-
-pinky.circle({ x: width / 2, y: height / 2, r: 4 }, { fillStyle: 'lime' });
-</script>
+    <script type="text/javascript" src="/js/pinky.js"></script>
 </body>
 </html>
