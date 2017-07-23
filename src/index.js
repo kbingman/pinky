@@ -3,7 +3,7 @@ import * as primitives from './primitives';
 /**
  * Basic fullscreen canvas
  */
-export const init = (canvas, { width, height, ratio }) => {
+const init = (canvas, { width, height, ratio }) => {
     const context = canvas.getContext('2d');
     ratio = ratio || 1;
 
@@ -16,7 +16,7 @@ export const init = (canvas, { width, height, ratio }) => {
     return context;
 };
 
-export const contextify = (context, key) => {
+const contextify = (context, key) => {
     return (options, styles) => {
         const fn = primitives[key];
         return fn(context, options, styles);

@@ -49,6 +49,9 @@ export const circle = (context, position, options) => {
     const { x, y, r, percentage, start = 0 } = position;
     const radians = percentage ? percentage * TAU : TAU;
 
+    console.log(x, y);
+    console.log(options);
+
     context.beginPath();
     context.arc(x, y, r, start, radians, false);
 
@@ -64,8 +67,6 @@ export const circle = (context, position, options) => {
 export const ellipse = (context, position, options) => {
     const { x, y, rx, ry, angle = 0, start = 0, radians = TAU } = position;
     const diff = rx - ry;
-
-    // x = x + (diff / 2);
 
     context.beginPath();
     context.ellipse(x, y, rx, ry, angle, start, radians); //
