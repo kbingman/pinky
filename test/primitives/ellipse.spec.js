@@ -2,10 +2,10 @@ import test from 'ava';
 import { context } from '../helpers/mock-context';
 import { ellipse } from '../../src/primitives';
 
-const defualts = {
+const defaults = {
     options: { x: 10, y: 10, rx: 2, ry: 2.5 },
     styles: { strokeStyle: 'white' }
-}
+};
 
 const drawElipse = (options = {}, styles = { strokeStyle: 'white' }) => {
     const { x = 10, y = 10, rx = 2, ry = 2.5 } = options;
@@ -21,7 +21,7 @@ test('sets a specific color', t => {
     t.true(context.strokeStyle === 'lime');
 });
 
-test('sets the color to \"white"', t => {
+test('sets the color to "white"', t => {
     drawElipse();
     t.true(context.strokeStyle === 'white');
 });

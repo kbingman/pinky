@@ -6,20 +6,20 @@ const TAU = Math.PI * 2;
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-function applyOptions(context, options = {}) {
+const applyOptions = (context, options = {}) => {
     return Object.keys(options).reduce((context, key) => {
         context[key] = options[key];
 
         return context;
     }, context);
-}
+};
 
 /**
  * @private - draw
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-function draw(context, options = {}) {
+const draw = (context, options = {}) => {
     context = applyOptions(context, options);
 
     if (options.lineWidth) {
@@ -28,31 +28,32 @@ function draw(context, options = {}) {
     context.fill();
 
     return context;
-}
+};
 
 /**
  * Clear
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-export function clear(context, { width, height }) {
+export const clear = (context, { width, height }) => {
     context.clearRect(0, 0, width, height);
-}
+};
 
 /**
- * Ellipse
+ * Circle
  * @param { Context } - canvas context
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function circle(context, { x, y, r, percentage, start = 0 }, options) {
+export const circle = (context, position, options) => {
+    const { x, y, r, percentage, start = 0 } = position;
     const radians = percentage ? percentage * TAU : TAU;
 
     context.beginPath();
     context.arc(x, y, r, start, radians, false);
 
     draw(context, options);
-}
+};
 
 /**
  * Ellipse
@@ -60,30 +61,30 @@ export function circle(context, { x, y, r, percentage, start = 0 }, options) {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function ellipse(context, { x, y, rx, ry, angle, start = 0, radians = TAU }, options) {
+export const ellipse = (context, position, options) => {
+    const { x, y, rx, ry, angle = 0, start = 0, radians = TAU } = position;
     const diff = rx - ry;
 
     // x = x + (diff / 2);
-    angle = angle || 0;
 
     context.beginPath();
     context.ellipse(x, y, rx, ry, angle, start, radians); //
 
     draw(context, options);
-}
+};
 
 /**
- * Text
+ * Rectangle
  * @param { Context } - canvas context
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function rectangle(context, { x, y, w, h }, options) {
+export const rectangle = (context, { x, y, w, h }, options) => {
     context.beginPath();
     context.rect(x, y, w, h);
 
     draw(context, options);
-}
+};
 
 /**
  * Text
@@ -91,24 +92,24 @@ export function rectangle(context, { x, y, w, h }, options) {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function text(context, { x, y, text }, options) {
+export const text = (context, { x, y, text }, options) => {
     context = applyOptions(context, options);
     context.fillText(text, x, y);
-}
+};
 
 /**
- * Draw Line
+ * Line
  * @param { Context } - canvas context
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function line(context, { x, y, x1, y1 }, options) {
+export const line = (context, { x, y, x1, y1 }, options) => {
     context.beginPath();
     context.moveTo(x, y);
     context.lineTo(x1, y1);
 
     draw(context, options);
-}
+};
 
 /**
  * Draw Quadratic Curve
@@ -116,10 +117,10 @@ export function line(context, { x, y, x1, y1 }, options) {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export function quadraticCurve(context, { x, y, x1, y1, xc, yc }, options) {
+export const quadraticCurve = (context, { x, y, x1, y1, xc, yc }, options) => {
     context.beginPath();
     context.moveTo(x, y);
     context.quadraticCurveTo(xc, yc, x1, y1);
 
     draw(context, options);
-}
+};
