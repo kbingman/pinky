@@ -36,12 +36,12 @@ test('does not call the stroke method if a lineWidth is not applied', t => {
     t.false(context.stroke.called);
 });
 
-test('calls the ellipse method with the default angle', t => {
-    drawElipse();
-    t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 0));
-});
-
-test('calls the ellipse method with the default angle', t => {
-    ellipse(context, { x: 10, y: 10, rx: 2, ry: 2.5, angle: 10 });
-    t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 10));
-});
+// test('calls the ellipse method with the default angle', t => {
+//     drawElipse();
+//     t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 0));
+// });
+//
+// test('calls the ellipse method with the default angle', t => {
+//     ellipse(context, { x: 10, y: 10, rx: 2, ry: 2.5, angle: 10 });
+//     t.true(context.ellipse.calledWith(9.75, 10, 2, 2.5, 10));
+// });

@@ -29,7 +29,7 @@ var init = function init(canvas, options) {
     return Object.keys(primitives).reduce(function (memo, key) {
         memo[key] = contextify(context, key);
         return memo;
-    }, { canvas: canvas, options: options });
+    }, { canvas: canvas, context: context, options: options });
 };
 
 var Pinky = { init: init };

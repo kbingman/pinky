@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -38,7 +38,7 @@ function draw(context) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     context = applyOptions(context, options);
-    console.log('fillStyle', options.fillStyle);
+
     if (options.lineWidth) {
         context.stroke();
     }
@@ -69,13 +69,14 @@ function circle(context, _ref2, options) {
     var x = _ref2.x,
         y = _ref2.y,
         r = _ref2.r,
-        percentage = _ref2.percentage;
+        percentage = _ref2.percentage,
+        _ref2$start = _ref2.start,
+        start = _ref2$start === undefined ? 0 : _ref2$start;
 
     var radians = percentage ? percentage * TAU : TAU;
 
     context.beginPath();
-    context.arc(x, y, r, 0, radians, false);
-    console.log('options', options);
+    context.arc(x, y, r, start, radians, false);
 
     draw(context, options);
 }
@@ -91,15 +92,19 @@ function ellipse(context, _ref3, options) {
         y = _ref3.y,
         rx = _ref3.rx,
         ry = _ref3.ry,
-        angle = _ref3.angle;
+        angle = _ref3.angle,
+        _ref3$start = _ref3.start,
+        start = _ref3$start === undefined ? 0 : _ref3$start,
+        _ref3$radians = _ref3.radians,
+        radians = _ref3$radians === undefined ? TAU : _ref3$radians;
 
     var diff = rx - ry;
 
-    x = x + diff / 2;
+    // x = x + (diff / 2);
     angle = angle || 0;
 
     context.beginPath();
-    context.ellipse(x, y, rx, ry, angle, 0, TAU); //
+    context.ellipse(x, y, rx, ry, angle, start, radians); //
 
     draw(context, options);
 }

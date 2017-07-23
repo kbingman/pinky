@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "ava",
-    "test:coverage": "nyc ava",
+    "coverage": "nyc ava",
     "build": "babel src -q -d dist",
     "watch": "babel src -w -d dist",
     "prepublish": "npm run test && npm run build"
