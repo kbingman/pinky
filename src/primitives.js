@@ -49,9 +49,6 @@ export const circle = (context, position, options) => {
     const { x, y, r, percentage, start = 0 } = position;
     const radians = percentage ? percentage * TAU : TAU;
 
-    console.log(x, y);
-    console.log(options);
-
     context.beginPath();
     context.arc(x, y, r, start, radians, false);
 
