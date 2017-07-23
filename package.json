@@ -1,6 +1,6 @@
 {
   "name": "pinky",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Simple functional canvas library",
   "main": "dist/index.js",
   "scripts": {
@@ -10,9 +10,7 @@
     "watch": "babel src -w -d dist",
     "prepublish": "npm run test && npm run build"
   },
-  "keywords": [
-    "canvas"
-  ],
+  "keywords": ["canvas"],
   "author": "Keith Bingman",
   "license": "MIT",
   "devDependencies": {
@@ -27,10 +25,7 @@
     "sinon": "^1.17.4"
   },
   "ava": {
-    "require": [
-      "babel-core/register",
-      "./test/helpers/setup-browser-env.js"
-    ],
+    "require": ["babel-core/register", "./test/helpers/setup-browser-env.js"],
     "babel": "inherit"
   }
 }
