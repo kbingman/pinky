@@ -2,6 +2,9 @@ import * as primitives from './primitives';
 
 /**
  * Basic fullscreen canvas, resized to support Retina screens
+ * @param { Number } - width
+ * @param { Number } - height
+ * @param { Number } - device pixel ratio
  */
 const init = (canvas, { width, height, ratio }) => {
     const context = canvas.getContext('2d');
