@@ -29,16 +29,8 @@
     "webpack": "^3.3.0"
   },
   "ava": {
-<<<<<<< HEAD
-    "require": [
-      "babel-core/register",
-      "./test/helpers/setup-browser-env.js"
-    ],
-    "babel": "inherit"
-=======
     "require": ["babel-core/register", "./test/helpers/setup-browser-env.js"],
     "babel": "inherit",
     "concurrency": 2
->>>>>>> 3254ca1e4953091690ef0c55b9bea6f9340a334a
   }
 }
