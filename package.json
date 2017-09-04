@@ -28,6 +28,7 @@
   },
   "ava": {
     "require": ["babel-core/register", "./test/helpers/setup-browser-env.js"],
-    "babel": "inherit"
+    "babel": "inherit",
+    "concurrency": 2
   }
 }

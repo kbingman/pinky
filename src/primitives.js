@@ -91,7 +91,7 @@ export const rectangle = (context, { x, y, w, h }, options) => {
  * @param { Object } - styles
  */
 export const text = (context, { x, y, text }, options) => {
-    context = applyOptions(context, options);
+    context = _applyOptions(context, options);
     context.fillText(text, x, y);
 };
 
