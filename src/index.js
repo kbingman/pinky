@@ -25,13 +25,14 @@ const contextify = (context, key) => {
 
 const Pinky = (canvas, options) => {
     const context = init(canvas, options);
+    const { width, height, ratio } = options;
 
     return Object.keys(primitives).reduce(
         (memo, key) => {
             memo[key] = contextify(context, key);
             return memo;
         },
-        { canvas, context, options }
+        { canvas, context, width, height, ratio }
     );
 };
 
