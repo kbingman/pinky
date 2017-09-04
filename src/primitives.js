@@ -1,5 +1,5 @@
 const { PI } = Math;
-const TAU = Math.PI * 2;
+const TAU = PI * 2;
 
 /**
  * @private - Apply Options
