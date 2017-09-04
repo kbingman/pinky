@@ -31,3 +31,15 @@ test('sets the height and width of the canvas styles on the device ratio', t => 
     t.true(canvas.style.width === '256px');
     t.true(canvas.style.height === '256px');
 });
+
+test('returns the adjusted width and height', t => {
+    const ctx = init(canvas, { width: 256, height: 256, ratio: 1 });
+    t.true(ctx.width === 256);
+    t.true(ctx.height === 256);
+});
+
+test('returns the adjusted width and height with a different pixel ratio', t => {
+    const ctx = init(canvas, { width: 256, height: 256, ratio: 2 });
+    t.true(ctx.width === 256);
+    t.true(ctx.height === 256);
+});
