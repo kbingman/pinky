@@ -6,7 +6,7 @@ const TAU = Math.PI * 2;
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-const applyOptions = (context, options = {}) => {
+const _applyOptions = (context, options = {}) => {
     return Object.keys(options).reduce((context, key) => {
         context[key] = options[key];
 
@@ -19,8 +19,8 @@ const applyOptions = (context, options = {}) => {
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-const draw = (context, options = {}) => {
-    context = applyOptions(context, options);
+const _draw = (context, options = {}) => {
+    context = _applyOptions(context, options);
 
     if (options.lineWidth) {
         context.stroke();
@@ -52,7 +52,7 @@ export const circle = (context, position, options) => {
     context.beginPath();
     context.arc(x, y, r, start, radians, false);
 
-    draw(context, options);
+    _draw(context, options);
 };
 
 /**
@@ -68,7 +68,7 @@ export const ellipse = (context, position, options) => {
     context.beginPath();
     context.ellipse(x, y, rx, ry, angle, start, radians); //
 
-    draw(context, options);
+    _draw(context, options);
 };
 
 /**
@@ -81,7 +81,7 @@ export const rectangle = (context, { x, y, w, h }, options) => {
     context.beginPath();
     context.rect(x, y, w, h);
 
-    draw(context, options);
+    _draw(context, options);
 };
 
 /**
@@ -106,11 +106,11 @@ export const line = (context, { x, y, x1, y1 }, options) => {
     context.moveTo(x, y);
     context.lineTo(x1, y1);
 
-    draw(context, options);
+    _draw(context, options);
 };
 
 /**
- * Draw Quadratic Curve
+ * Quadratic Curve
  * @param { Context } - canvas context
  * @param { Object } - options
  * @param { Object } - styles
@@ -120,5 +120,5 @@ export const quadraticCurve = (context, { x, y, x1, y1, xc, yc }, options) => {
     context.moveTo(x, y);
     context.quadraticCurveTo(xc, yc, x1, y1);
 
-    draw(context, options);
+    _draw(context, options);
 };
