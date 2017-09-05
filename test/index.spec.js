@@ -1,4 +1,6 @@
 import test from 'ava';
+import sinon from 'sinon';
+
 import { context, canvas } from './helpers/mock-context';
 import init from '../src/';
 
@@ -40,6 +42,16 @@ test('returns the adjusted width and height', t => {
 
 test('returns the adjusted width and height with a different pixel ratio', t => {
     const ctx = init(canvas, { width: 256, height: 256, ratio: 2 });
+
     t.true(ctx.width === 256);
     t.true(ctx.height === 256);
+});
+
+test('calls the assigned methods', t => {
+    const ctx = init(canvas, { width: 256, height: 256, ratio: 2 });
+    const styles = {};
+    const options = {};
+    ctx.circle(styles, options);
+
+    t.true(context.arc.calledOnce);
 });

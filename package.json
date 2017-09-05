@@ -25,11 +25,14 @@
     "http-server": "^0.10.0",
     "jsdom": "^9.2.1",
     "nyc": "^10.0.0",
-    "sinon": "^1.17.4",
+    "sinon": "^3.2.1",
     "webpack": "^3.3.0"
   },
   "ava": {
-    "require": ["babel-core/register", "./test/helpers/setup-browser-env.js"],
+    "require": [
+      "babel-core/register",
+      "./test/helpers/setup-browser-env.js"
+    ],
     "babel": "inherit",
     "concurrency": 2
   }
