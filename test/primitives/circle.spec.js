@@ -28,6 +28,12 @@ test('does not call the stroke method if a lineWidth is not applied', t => {
   t.false(context.stroke.called);
 });
 
+test('calls the fill method', t => {
+  drawCircle({}, { lineWidth: 0, fillStyle: 'lime' });
+
+  t.false(context.fill.called);
+});
+
 test('sets the default color', t => {
   drawCircle();
   t.true(context.strokeStyle === 'white');
