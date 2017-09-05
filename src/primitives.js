@@ -6,9 +6,9 @@ const TAU = PI * 2;
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-const _applyOptions = (context, options = {}) => {
-    return Object.keys(options).reduce((context, key) => {
-        context[key] = options[key];
+const _applyOptions = (context, styles) => {
+    return Object.keys(styles).reduce((context, key) => {
+        context[key] = styles[key];
 
         return context;
     }, context);
@@ -19,10 +19,10 @@ const _applyOptions = (context, options = {}) => {
  * @param { Context } - canvas context
  * @param { Object } - options
  */
-const _draw = (context, options = {}) => {
-    context = _applyOptions(context, options);
+const _draw = (context, styles) => {
+    context = _applyOptions(context, styles);
 
-    if (options.lineWidth) {
+    if (context.lineWidth) {
         context.stroke();
     }
     context.fill();
@@ -45,14 +45,14 @@ export const clear = (context, { width, height }) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const circle = (context, position, options) => {
+export const circle = (context, position, styles) => {
     const { x, y, r, percentage, start = 0 } = position;
     const radians = percentage ? percentage * TAU : TAU;
 
     context.beginPath();
     context.arc(x, y, r, start, radians, false);
 
-    _draw(context, options);
+    _draw(context, styles);
 };
 
 /**
@@ -61,14 +61,13 @@ export const circle = (context, position, options) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const ellipse = (context, position, options) => {
+export const ellipse = (context, position, styles) => {
     const { x, y, rx, ry, angle = 0, start = 0, radians = TAU } = position;
-    const diff = rx - ry;
 
     context.beginPath();
     context.ellipse(x, y, rx, ry, angle, start, radians); //
 
-    _draw(context, options);
+    _draw(context, styles);
 };
 
 /**
@@ -77,11 +76,11 @@ export const ellipse = (context, position, options) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const rectangle = (context, { x, y, w, h }, options) => {
+export const rectangle = (context, { x, y, w, h }, styles) => {
     context.beginPath();
     context.rect(x, y, w, h);
 
-    _draw(context, options);
+    _draw(context, styles);
 };
 
 /**
@@ -90,8 +89,8 @@ export const rectangle = (context, { x, y, w, h }, options) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const text = (context, { x, y, text }, options) => {
-    context = _applyOptions(context, options);
+export const text = (context, { x, y, text }, styles) => {
+    context = _applyOptions(context, styles);
     context.fillText(text, x, y);
 };
 
@@ -101,12 +100,12 @@ export const text = (context, { x, y, text }, options) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const line = (context, { x, y, x1, y1 }, options) => {
+export const line = (context, { x, y, x1, y1 }, styles) => {
     context.beginPath();
     context.moveTo(x, y);
     context.lineTo(x1, y1);
 
-    _draw(context, options);
+    _draw(context, styles);
 };
 
 /**

@@ -8,7 +8,7 @@ const drawCircle = (options = {}, styles = { strokeStyle: 'white' }) => {
     circle(context, { x, y, r }, styles);
 };
 
-test.afterEach(t => {
+test.afterEach(() => {
     context.stroke.reset();
 });
 
@@ -31,7 +31,7 @@ test('does not call the stroke method if a lineWidth is not applied', t => {
 test('calls the fill method', t => {
   drawCircle({}, { lineWidth: 0, fillStyle: 'lime' });
 
-  t.false(context.fill.called);
+  t.true(context.fill.called);
 });
 
 test('sets the default color', t => {
@@ -41,5 +41,15 @@ test('sets the default color', t => {
 
 test('receives the coordinates and radius', t => {
   drawCircle();
-  t.true(context.arc.calledWith(10, 10, 2));
+  t.true(context.arc.calledWith(10, 10, 2, 0, Math.PI * 2));
+});
+
+//const { x = 10, y = 10, r = 2 } = options;
+
+test('receives the coordinates and radius', t => {
+  const options = { x: 10, y: 10, r: 2, percentage: 0.50, start: Math.PI };
+  const styles = { strokeStyle: 'white' };
+
+  circle(context, options, styles);
+  t.true(context.arc.calledWith(10, 10, 2, Math.PI, Math.PI));
 });

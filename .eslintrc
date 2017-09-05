@@ -4,7 +4,6 @@
         "es6": true,
         "node": true
     },
-    "parser": "babel-eslint",
     "rules": {
         "curly": "error",
         "comma-dangle": ["error", "never"],
