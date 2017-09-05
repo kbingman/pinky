@@ -45,8 +45,8 @@ export const clear = (context, { width, height }) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const circle = (context, position, styles) => {
-    const { x, y, r, percentage, start = 0 } = position;
+export const circle = (context, options, styles) => {
+    const { x, y, r, percentage, start = 0 } = options;
     const radians = percentage ? percentage * TAU : TAU;
 
     context.beginPath();
@@ -61,11 +61,11 @@ export const circle = (context, position, styles) => {
  * @param { Object } - options
  * @param { Object } - styles
  */
-export const ellipse = (context, position, styles) => {
-    const { x, y, rx, ry, angle = 0, start = 0, radians = TAU } = position;
+export const ellipse = (context, options, styles) => {
+    const { x, y, rx, ry, angle = 0, start = 0, radians = TAU } = options;
 
     context.beginPath();
-    context.ellipse(x, y, rx, ry, angle, start, radians); //
+    context.ellipse(x, y, rx, ry, angle, start, radians);
 
     _draw(context, styles);
 };
